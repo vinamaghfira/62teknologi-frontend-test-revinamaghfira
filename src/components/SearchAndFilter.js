@@ -2,10 +2,10 @@ const SearchAndFilter = ({queryParams, handleQueryParams, handleSubmitSearchAndF
 
     return (
         <div>
-            <h2>Search Businesses</h2>
-            <form>
+            <h2 className="text-2xl font-bold">Search Businesses</h2>
+            <form className="flex flex-col items-center md:flex-row md:justify-between">
                 <div className="flex flex-col">
-                    <label htmlFor="location" className="ml-1 text-sm">
+                    <label htmlFor="location" className="ml-1 text-sm font-semibold">
                     Location
                     </label>
                     <input
@@ -15,11 +15,11 @@ const SearchAndFilter = ({queryParams, handleQueryParams, handleSubmitSearchAndF
                     required
                     value={queryParams.location ?? ''}
                     onChange={handleQueryParams}
-                    className="py-2 px-3 rounded-md focus:outline-2 outline-slate-200"
+                    className="px-3 py-3 bg-slate-200 rounded-md focus:outline-2 outline-slate-200"
                     />
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="latitude" className="ml-1 text-sm">
+                    <label htmlFor="latitude" className="ml-1 text-sm font-semibold">
                     Latitude
                     </label>
                     <input
@@ -28,11 +28,11 @@ const SearchAndFilter = ({queryParams, handleQueryParams, handleSubmitSearchAndF
                     name="latitude"
                     value={queryParams.latitude ?? ''}
                     onChange={handleQueryParams}
-                    className="py-2 px-3 rounded-md focus:outline-2 outline-slate-200"
+                    className="px-3 py-3 bg-slate-200 rounded-md focus:outline-2 outline-slate-200"
                     />
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="longitude" className="ml-1 text-sm">
+                    <label htmlFor="longitude" className="ml-1 text-sm font-semibold">
                     Longitude
                     </label>
                     <input
@@ -41,11 +41,11 @@ const SearchAndFilter = ({queryParams, handleQueryParams, handleSubmitSearchAndF
                     name="longitude"
                     value={queryParams.longitude ?? ''}
                     onChange={handleQueryParams}
-                    className="py-2 px-3 rounded-md focus:outline-2 outline-slate-200"
+                    className="px-3 py-3 bg-slate-200 rounded-md focus:outline-2 outline-slate-200"
                     />
                 </div>
                 <div className="flex flex-col">
-                    <label htmlFor="longitude" className="ml-1 text-sm">
+                    <label htmlFor="longitude" className="ml-1 text-sm font-semibold">
                     Filter by Category
                     </label>
                     <select
@@ -53,7 +53,7 @@ const SearchAndFilter = ({queryParams, handleQueryParams, handleSubmitSearchAndF
                         name="categories"
                         value={queryParams.categories ?? ''}
                         onChange={handleQueryParams}
-                        className="py-2 px-3 rounded-md focus:outline-2 outline-slate-200"
+                        className="px-3 py-3 bg-slate-200 rounded-md focus:outline-2 outline-slate-200"
                         >
                         <option value="">Select</option>
                         <option value="beautysvc">Beauty & Spa</option>
@@ -63,7 +63,7 @@ const SearchAndFilter = ({queryParams, handleQueryParams, handleSubmitSearchAndF
                 </div>
                 <button
                     type="submit"
-                    className="py-2 px-4 bg-blue-400 rounded-md hover:bg-blue-300"
+                    className="py-2 px-4 bg-blue-500 rounded-md hover:bg-blue-300 text-white"
                     onClick={handleSubmitSearchAndFilter}
                 >
                     Search
