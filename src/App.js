@@ -79,7 +79,7 @@ function App() {
 
   return (
     <div>
-      <h2>List Business</h2>
+      <h2 className='text-2xl font-bold'>List Business</h2>
 
       <SearchAndFilter handleQueryParams={handleQueryParams} queryParams={queryParams} handleSubmitSearchAndFilter={handleSubmitSearchAndFilter} />
       <DataTable
