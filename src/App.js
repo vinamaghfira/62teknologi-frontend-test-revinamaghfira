@@ -3,9 +3,12 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import DataTable from 'react-data-table-component';
+import SearchAndFilter from './components/SearchAndFilter';
+import { getBusiness } from './api';
 
 
 const API_KEY = 'Ubf1-f0uqsJUnssqPMGo-tiFeZTT85oFmKfznlPmjDtX8s83jYMoAb-ApuD63wgq6LDZNsUXG6gurZIVYaj2jzxJmmLdCdXbDqIHU_b6KiCEVi8v-YB0OSsW6MWaY3Yx';
+
 
 function App() {
   const columns = [
@@ -15,7 +18,7 @@ function App() {
     },
     {
         name: 'Coordinates',
-        selector: row => row.latLong,
+        selector: row => `${row.coordinates.latitude} ${row.coordinates.longitude}`,
     },
     {
         name: 'Name',
@@ -39,86 +42,46 @@ function App() {
     },
   ];
 
-
-  //function untuk get data api
-  const getData = (search, rating)=>{
-    let baseUrl = `http://62teknologi-backend.test/api/business/get`
-    let queryParams = `?categories=${search}&alias=${search}&name=${search}`
-    if(rating){
-      queryParams += `&rating=${rating}`
-    }
-    if(search){
-      baseUrl += queryParams
-
-    }
-    axios.get(baseUrl, {
-      headers: {
-        Authorization: `Bearer ${API_KEY}`
-      }
-    })
-    .then(response => {
-      let business = response.data.data;
-      business = business.map(busines => {
-        busines.latLong = busines.coordinates.longitude + busines.coordinates.latitude
-        busines.actions = ''
-        return busines
-      })
-      // console.log(business);
-      setData(business);
-      // console.log(data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  }
-
-   // [variable, function]
+  // [variable, function]
   let [data,setData] = useState([])
-  let [search,setSearch] = useState([])
-  let [filter,setFilterRating] = useState([])
 
-  //jalankan getdata ketika component sudah termounted
-  useEffect(()=>{
-    getData()
-  },[])
+  const [queryParams, setQueryParams] = useState({
+    term: null,
+    location: null,
+    latitude: null,
+    longitude: null,
+    categories: null,
+    price: null,
+    limit: 20,
+    offset: 0,
+    sort_by: 'best_match',
+  })
 
-  // handle search value
-  const handleSearch = (e)=>{
-    // console.log(e);
-    setSearch(e.target.value);
-    // console.log(e.target.value);
-  }
+  const handleQueryParams = (e) => {
+    e.preventDefault();
 
-  // handle ketika button search di klik
-  const handleButtonSerch = ()=>{
-    getData(search,filter);
-  }
+    setQueryParams((queryParams) => ({
+      ...queryParams,
+      [e.target.name]: e.target.value || null,
+    }));
+  };
 
-  // handle ketika pilih filter
-  const handleSelectedFilter = (e)=>{
-    console.log(e.target.value);
-    setFilterRating(e.target.value);
-    getData(search,e.target.value);
+  const handleSubmitSearchAndFilter = async (e) => {
+    e.preventDefault();
 
-  }
+    if (!(queryParams.location || (queryParams.latitude && queryParams.longitude))) {
+      return alert('Fill location or latitude & longitude!');
+    }
+
+    const response = await getBusiness(queryParams)
+    setData(response.data.businesses)
+  };
 
   return (
     <div>
       <h2>List Business</h2>
 
-      <input class="search" type="text" onChange={handleSearch} placeholder="Cari..." required/>
-      <input class="button" type="button"onClick={handleButtonSerch} value="Cari"/>
-
-      <label htmlFor="rating">Rating</label>
-      <select onChange={handleSelectedFilter} id='rating' value={filter}>
-        <option value=""></option>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-      </select>
-
+      <SearchAndFilter handleQueryParams={handleQueryParams} queryParams={queryParams} handleSubmitSearchAndFilter={handleSubmitSearchAndFilter} />
       <DataTable
         columns={columns}
         data={data}
