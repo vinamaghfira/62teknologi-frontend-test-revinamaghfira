@@ -57,8 +57,8 @@ const SearchAndFilter = ({queryParams, handleQueryParams, handleSubmitSearchAndF
                         >
                         <option value="">Select</option>
                         <option value="beautysvc">Beauty & Spa</option>
-                        <option value="shopping">Shopping</option>
                         <option value="restaurants">Restaurants</option>
+                        <option value="shopping">Shopping</option>
                     </select>
                 </div>
                 <button

@@ -10,6 +10,7 @@ const headers = {
     Authorization: `Bearer ${API_KEY}`,
 }
 
+//get all business
 export const getBusiness = params => {
     return axios({
         method: 'GET',
@@ -19,6 +20,7 @@ export const getBusiness = params => {
     })
 }
 
+// get detail business image
 export const getDetailBusiness= (businessId) => {
     return axios({
       method: 'GET',
@@ -27,6 +29,7 @@ export const getDetailBusiness= (businessId) => {
     });
   }
 
+//get detail review
   export const getDetailBusinessReview= (businessId) => {
     return axios({
       method: 'GET',

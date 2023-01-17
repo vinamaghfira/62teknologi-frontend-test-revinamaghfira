@@ -53,8 +53,6 @@ function Home() {
   })
 
   const handleQueryParams = (e) => {
-    e.preventDefault();
-
     setQueryParams((queryParams) => ({
       ...queryParams,
       [e.target.name]: e.target.value || null,
