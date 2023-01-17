@@ -2,6 +2,7 @@ import { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import SearchAndFilter from '../../components/SearchAndFilter';
 import { getBusiness } from '../../api';
+import { Link } from 'react-router-dom'
 
 
 function Home() {
@@ -32,7 +33,7 @@ function Home() {
     },
     {
         name: 'Actions',
-        selector: ()=> <button>Detail</button>,
+        selector: row=> <Link className="px-3 py-3 bg-indigo-300 text-indigo-600 font-semibold" to={`/detail/${row.id}`}>Detail</Link>,
     },
   ];
 
