@@ -4,14 +4,13 @@ import { getDetailBusiness, getDetailBusinessReview } from '../../api';
 import './index.css';
 
 export async function loader({ params }) {
-    let businessData = await getDetailBusiness(params.businessId);
+    const businessData = await getDetailBusiness(params.businessId);
     console.log(businessData)
     const reviewsData = await getDetailBusinessReview(params.businessId)
     // data['reviews'] = response.data
     const data = {...businessData.data, reviews: reviewsData.data}
-    console.log(data)
     return data
-    // return {data: {
+    // return {
     //     "id": "jbJTF1zVmZsk4hea8hoeVA",
     //     "alias": "fork-boise",
     //     "name": "Fork",
@@ -159,7 +158,7 @@ export async function loader({ params }) {
     //             }
     //         }
     //     ]
-    // }}
+    // }
 }
 
 export default function Detail() {
